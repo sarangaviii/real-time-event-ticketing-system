@@ -7,8 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RealTimeEventTicketingSystemApplication {
 
 	public static void main(String[] args) {
-		System.out.println("Real Time Event Ticketing System");
-		SpringApplication.run(RealTimeEventTicketingSystemApplication.class, args);
+		System.out.println("Test 1");
 	}
 
 }
