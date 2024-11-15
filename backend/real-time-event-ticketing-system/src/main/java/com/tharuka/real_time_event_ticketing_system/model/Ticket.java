@@ -3,10 +3,10 @@ package com.tharuka.real_time_event_ticketing_system.model;
 public class Ticket {
     private int ticketId;
     private int eventId;
-    private int customerId;
+    private Customer customerId;
     private int vendorId;
 
-    public Ticket(int ticketId, int eventId, int customerId, int vendorId) {
+    public Ticket(int ticketId, int eventId, Customer customerId, int vendorId) {
         this.ticketId = ticketId;
         this.eventId = eventId;
         this.customerId = customerId;
@@ -29,11 +29,11 @@ public class Ticket {
         this.eventId = eventId;
     }
 
-    public int getCustomerId() {
+    public Customer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(Customer customerId) {
         this.customerId = customerId;
     }
 
