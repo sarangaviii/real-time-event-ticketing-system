@@ -1,17 +1,17 @@
 package main.java.com.tharuka.realtimeeventticketingbackend.model;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TicketPool {
-    private final Queue<Integer> tickets = new LinkedList<>();
+    private final List<Integer> tickets = new ArrayList<>();
     private int maxCapacity;
 
     public TicketPool(int maxCapacity) {
         this.maxCapacity = maxCapacity;
     }
-
-    public synchronized void addTickets(int ticketId) throws InterruptedException {
+    // add tickets to the pool (thread-safe)
+    public synchronized void addTickets(int ticketId) throws InterruptedException { // throw exception means if the pool is full it will throw an exception
         while (tickets.size() >= maxCapacity) {
             try {
                 wait();
@@ -19,15 +19,24 @@ public class TicketPool {
                 throw new RuntimeException(e);
             }
         }
+        tickets.add(ticketId);
+        System.out.println("Ticket added: " + ticketId);
+        notifyAll();
 
     }
 
+    // remove tickets from the pool (thread-safe)
     public synchronized int removeTicket() throws InterruptedException {
         while (tickets.isEmpty()) {
-            wait();
+            try {
+                wait(); // Wait until a ticket is available
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
-        int ticket = tickets.poll();
-        notifyAll();
+        int ticket = tickets.remove(0);
+        System.out.println("Removed ticket: Ticket " + ticket);
+        notifyAll(); // Notify any waiting threads
         return ticket;
     }
 
