@@ -1,4 +1,4 @@
-package main.java.com.tharuka.realtimeeventticketingbackend.model;
+package com.tharuka.realtimeeventticketingbackend.model;
 
 import java.util.ArrayList;
 import java.util.List;

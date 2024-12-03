@@ -1,4 +1,4 @@
-package main.java.com.tharuka.realtimeeventticketingbackend.model;
+package com.tharuka.realtimeeventticketingbackend.model;
 
 public class Customer  {
 
