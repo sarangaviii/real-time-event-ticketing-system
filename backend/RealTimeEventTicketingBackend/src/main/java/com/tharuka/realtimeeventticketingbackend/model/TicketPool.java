@@ -20,7 +20,6 @@ public class TicketPool {
             }
         }
         tickets.add(ticketId);
-        System.out.println("Ticket added: " + ticketId);
         notifyAll();
 
     }
@@ -35,7 +34,6 @@ public class TicketPool {
             }
         }
         int ticket = tickets.remove(0);
-        System.out.println("Removed ticket: Ticket " + ticket);
         notifyAll(); // Notify any waiting threads
         return ticket;
     }
