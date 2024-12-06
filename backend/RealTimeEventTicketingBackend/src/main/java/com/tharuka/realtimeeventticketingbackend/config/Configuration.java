@@ -1,4 +1,4 @@
 package com.tharuka.realtimeeventticketingbackend.config;
 
-public class AdminConfiguration {
+public class Configuration {
 }
