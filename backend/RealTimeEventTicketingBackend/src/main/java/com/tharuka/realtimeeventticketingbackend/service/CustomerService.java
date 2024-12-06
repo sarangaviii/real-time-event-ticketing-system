@@ -1,7 +1,10 @@
 package com.tharuka.realtimeeventticketingbackend.service;
 
 import com.tharuka.realtimeeventticketingbackend.model.TicketPool;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class CustomerService implements Runnable{
     private final TicketPool ticketPool;
     private final int cutomerId;
