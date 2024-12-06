@@ -22,6 +22,7 @@ public class TicketingController {
     @PostMapping("/start")
     public String startSystem(@RequestParam int totalTickets, @RequestParam int maxCapacity, @RequestParam int numVendors, @RequestParam int vendorRate, @RequestParam int numCustomers, @RequestParam int customerRate) {
         ticketPool.setMaxCapacity(maxCapacity);
+        ticketPool.setMaxCapacity(maxCapacity);
         executorService = Executors.newFixedThreadPool(numVendors +numCustomers);
 
         for(int i = 1; i <= numVendors; i++) {
