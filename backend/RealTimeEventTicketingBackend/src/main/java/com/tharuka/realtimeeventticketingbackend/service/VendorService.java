@@ -1,6 +1,8 @@
 package com.tharuka.realtimeeventticketingbackend.service;
 
 import com.tharuka.realtimeeventticketingbackend.model.TicketPool;
+import org.springframework.stereotype.Service;
+
 
 public class VendorService implements Runnable {
     private final TicketPool ticketPool;
