@@ -1,15 +1,18 @@
 package com.tharuka.realtimeeventticketingbackend.model;
 
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Component // Mark the class as a Spring component or spring bean
 public class TicketPool {
     private final List<Integer> tickets = new ArrayList<>();
+    @Setter
     private int maxCapacity;
 
-    public TicketPool(int maxCapacity) {
-        this.maxCapacity = maxCapacity;
-    }
     // add tickets to the pool (thread-safe)
     public synchronized void addTickets(int ticketId) throws InterruptedException { // throw exception means if the pool is full it will throw an exception
         while (tickets.size() >= maxCapacity) {
@@ -41,4 +44,5 @@ public class TicketPool {
     public synchronized int getAvailableTickets() {
         return tickets.size(); // Number of available tickets return tickets.size();
     }
+
 }
