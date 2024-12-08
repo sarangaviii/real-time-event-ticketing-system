@@ -14,6 +14,33 @@ public class Configuration {
     private int numCustomers;
     private int customerRate; // tickets per second
 
+
+    // prompt the user for configuration inputs
+
+    public void promptForConfiguration() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter total tickets: ");
+        totalTickets = scanner.nextInt();
+
+        System.out.print("Enter maximum ticket pool capacity: ");
+        maxCapacity = scanner.nextInt();
+
+        System.out.print("Enter number of vendors: ");
+        numVendors = scanner.nextInt();
+
+        System.out.print("Enter vendor ticket release rate (tickets/second): ");
+        vendorRate = scanner.nextInt();
+
+        System.out.print("Enter number of customers: ");
+        numCustomers = scanner.nextInt();
+
+        System.out.print("Enter customer ticket purchase rate (tickets/second): ");
+        customerRate = scanner.nextInt();
+
+    }
+
+
     public int getTotalTickets() {
         return totalTickets;
     }
