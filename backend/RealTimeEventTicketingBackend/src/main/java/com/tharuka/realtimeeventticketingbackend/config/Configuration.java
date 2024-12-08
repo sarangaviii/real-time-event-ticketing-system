@@ -40,6 +40,16 @@ public class Configuration {
 
     }
 
+    // save the configuration to a JSON file using Jackson
+    public void saveToJsonFile(String filePath) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            objectMapper.writeValue(new File(filePath), this);
+            System.out.println("Configuration saved to " + filePath);
+        } catch (IOException e) {
+            System.out.print("Error saving configuration to file: " + e.getMessage());
+        }
+    }
 
     public int getTotalTickets() {
         return totalTickets;
