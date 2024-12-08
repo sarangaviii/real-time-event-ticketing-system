@@ -15,6 +15,7 @@ public class Configuration {
     private int customerRate; // tickets per second
 
 
+
     // prompt the user for configuration inputs
     public void promptForConfiguration() {
         Scanner scanner = new Scanner(System.in); // Create a Scanner object
@@ -61,6 +62,8 @@ public class Configuration {
         }
     }
 
+
+    // getters and setters
     public int getTotalTickets() {
         return totalTickets;
     }
