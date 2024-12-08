@@ -16,28 +16,38 @@ public class Configuration {
 
 
     // prompt the user for configuration inputs
-
     public void promptForConfiguration() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in); // Create a Scanner object
 
-        System.out.print("Enter total tickets: ");
-        totalTickets = scanner.nextInt();
+        totalTickets = getPositiveInteger(scanner, "Enter total tickets: ");
 
-        System.out.print("Enter maximum ticket pool capacity: ");
-        maxCapacity = scanner.nextInt();
+        maxCapacity = getPositiveInteger(scanner, "Enter maximum ticket pool capacity: ");
 
-        System.out.print("Enter number of vendors: ");
-        numVendors = scanner.nextInt();
+        numVendors = getPositiveInteger(scanner, "Enter number of vendors: ");
 
-        System.out.print("Enter vendor ticket release rate (tickets/second): ");
-        vendorRate = scanner.nextInt();
+        vendorRate = getPositiveInteger(scanner, "Enter vendor ticket release rate (tickets/second): ");
 
-        System.out.print("Enter number of customers: ");
-        numCustomers = scanner.nextInt();
+        numCustomers = getPositiveInteger(scanner, "Enter number of customers: ");
 
-        System.out.print("Enter customer ticket purchase rate (tickets/second): ");
-        customerRate = scanner.nextInt();
+        customerRate = getPositiveInteger(scanner, "Enter customer ticket purchase rate (tickets/second): ");
 
+    }
+
+    //A Method to validate the configuration
+    public int getPositiveInteger(Scanner scanner, String prompt) {
+        int value = -1; // Initialize to an invalid value
+        while (value <= 0) { // Loop until a positive integer is entered
+            System.out.print(prompt);
+            try {
+                value = Integer.parseInt(scanner.nextLine()); // Parse the input as an integer
+                if (value <= 0) {
+                    System.out.println("Value must be positive. Please enter a positive integer.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a positive integer.");
+            }
+        }
+        return value;
     }
 
     // save the configuration to a JSON file using Jackson
