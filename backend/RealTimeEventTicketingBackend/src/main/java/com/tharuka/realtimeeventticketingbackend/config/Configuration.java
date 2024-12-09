@@ -1,12 +1,20 @@
 package com.tharuka.realtimeeventticketingbackend.config;
 
+import aj.org.objectweb.asm.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+@Setter
+@Getter
 public class Configuration {
+    // getters and setters
     private int totalTickets;
     private int maxCapacity;
     private int numVendors;
@@ -63,52 +71,4 @@ public class Configuration {
     }
 
 
-    // getters and setters
-    public int getTotalTickets() {
-        return totalTickets;
-    }
-
-    public void setTotalTickets(int totalTickets) {
-        this.totalTickets = totalTickets;
-    }
-
-    public int getMaxCapacity() {
-        return maxCapacity;
-    }
-
-    public void setMaxCapacity(int maxCapacity) {
-        this.maxCapacity = maxCapacity;
-    }
-
-    public int getNumVendors() {
-        return numVendors;
-    }
-
-    public void setNumVendors(int numVendors) {
-        this.numVendors = numVendors;
-    }
-
-    public int getVendorRate() {
-        return vendorRate;
-    }
-
-    public void setVendorRate(int vendorRate) {
-        this.vendorRate = vendorRate;
-    }
-
-    public int getNumCustomers() {
-        return numCustomers;
-    }
-
-    public void setNumCustomers(int numCustomers) {
-        this.numCustomers = numCustomers;
-    }
-
-    public int getCustomerRate() {
-        return customerRate;
-    }
-
-    public void setCustomerRate(int customerRate) {
-        this.customerRate = customerRate;
-    }
 }
