@@ -1,6 +1,5 @@
 package com.tharuka.realtimeeventticketingbackend.config;
 
-import aj.org.objectweb.asm.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
