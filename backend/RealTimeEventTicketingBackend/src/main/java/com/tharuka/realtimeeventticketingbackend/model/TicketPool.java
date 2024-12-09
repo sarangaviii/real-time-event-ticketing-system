@@ -10,6 +10,7 @@ import java.util.List;
 @Component // Mark the class as a Spring component or spring bean
 public class TicketPool {
     private final List<Integer> tickets = new ArrayList<>();
+
     @Setter
     private int maxCapacity;
 
