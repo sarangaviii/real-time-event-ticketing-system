@@ -19,8 +19,11 @@ public class CustomerService implements Runnable{
     @Override
     public void run() {
         try {
-            while (true) {
+            while (!Thread.currentThread().isInterrupted()) {
                 int ticket = ticketPool.removeTicket();
+                if (ticket == -1) {
+                    break;
+                }
                 System.out.println("Customer " + customerId + " purchased Ticket " + ticket);
                 Thread.sleep(1000 / ticketPerSecond);
             }
