@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -50,25 +51,56 @@ public class Configuration {
             try {
                 value = Integer.parseInt(scanner.nextLine()); // Parse the input as an integer
                 if (value <= 0) {
-                    System.out.println("Value must be positive. Please enter a positive integer.");
+                    System.err.println("Value must be positive. Please enter a positive integer.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a positive integer.");
+                System.err.println("Invalid input. Please enter a positive integer.");
             }
         }
         return value;
     }
 
-    // save the configuration to a JSON file using Jackson
-    public void saveToJsonFile(String filePath) {
+
+    // Append the configuration to a JSON file
+    public void appendToJsonFile(String filePath) {
         ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            objectMapper.writeValue(new File(filePath), this);
-            System.out.println("Configuration saved to " + filePath);
-        } catch (IOException e) {
-            System.out.print("Error saving configuration to file: " + e.getMessage());
+        List<Configuration> configList = new ArrayList<>(); // List to store configurations
+
+        // Check if the file exists and read existing configurations
+        File file = new File(filePath);
+        if (file.exists()) {
+            try {
+                // Read existing configurations from the file
+                Configuration[] existingConfigurations = objectMapper.readValue(file, Configuration[].class);
+                configList = new ArrayList<>(Arrays.asList(existingConfigurations));
+            } catch (IOException e) {
+                System.out.println("Error reading existing configurations: " + e.getMessage());
+            }
         }
+
+        // Add the new configuration to the list
+        configList.add(this);
+
+        // write the updated list back to the file
+        try {
+            objectMapper.writeValue(file, configList);
+            System.out.println("Configuration appended to " + filePath);
+        } catch (IOException e) {
+            System.out.println("Error writing configuration to file: " + e.getMessage());
+        }
+
     }
+
+    // save the configuration to a JSON file using Jackson
+//    public void saveToJsonFile(String filePath) {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        try {
+//            objectMapper.writeValue(new File(filePath), this);
+//            System.out.println("Configuration saved to " + filePath);
+//        } catch (IOException e) {
+//            System.out.print("Error saving configuration to file: " + e.getMessage());
+//        }
+//    }
 
 
 }
