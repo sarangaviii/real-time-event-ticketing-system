@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 public class TicketingController {
     private final TicketPool ticketPool;
     private ExecutorService executorService;
+    private boolean systemRunning = false;
 
 
     public TicketingController(TicketPool ticketPool) {
@@ -21,7 +22,15 @@ public class TicketingController {
 
     @PostMapping("/start")
     public String startSystem(@RequestParam int totalTickets, @RequestParam int maxCapacity, @RequestParam int numVendors, @RequestParam int vendorRate, @RequestParam int numCustomers, @RequestParam int customerRate) {
-        ticketPool.setMaxCapacity(maxCapacity);
+        if (systemRunning) {
+            return "System is already running. Stop the system before starting a new simulation.";
+        }
+
+        if (totalTickets <= 0 || maxCapacity <= 0 || numVendors <= 0 || vendorRate <= 0 || numCustomers <= 0 || customerRate <= 0) {
+            return "All parameters must be positive integers.";
+        }
+
+//        ticketPool.setMaxCapacity(maxCapacity);
         ticketPool.setMaxCapacity(maxCapacity);
         executorService = Executors.newFixedThreadPool(numVendors +numCustomers);
 
@@ -33,16 +42,36 @@ public class TicketingController {
         for (int i = 1; i <= numCustomers; i++) {
             executorService.execute(new CustomerService(ticketPool, i, customerRate));
         }
-
+        systemRunning = true;
         return "System started successfully";
 
     }
+
+    // Stop the system
     @PostMapping("/stop")
     public String stopSystem() {
         if(executorService != null) {
             executorService.shutdownNow();
         }
+        systemRunning = false;
         return "System stopped successfully";
+    }
+
+    // Get the status of the system
+    @GetMapping("/status")
+    public String getStatus() {
+        int availableTickets = ticketPool.getAvailableTickets();
+        return "Available tickets: " + availableTickets;
+    }
+
+    // Reset the system
+    @PostMapping("/reset")
+    public String resetSystem() {
+        if (systemRunning) {
+            stopSystem();
+        }
+        ticketPool.clear();
+        return "System reset successfully";
     }
 
 
