@@ -19,8 +19,9 @@ public class TicketPool {
         while (tickets.size() >= maxCapacity) {
             try {
                 wait();
-            } catch (java.lang.InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
             }
         }
         tickets.add(ticketId);
@@ -34,7 +35,8 @@ public class TicketPool {
             try {
                 wait(); // Wait until a ticket is available
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
+                return -1;
             }
         }
         int ticket = tickets.remove(0);
@@ -46,4 +48,7 @@ public class TicketPool {
         return tickets.size(); // Number of available tickets return tickets.size();
     }
 
+    public synchronized void clear() {
+        tickets.clear();
+    }
 }
