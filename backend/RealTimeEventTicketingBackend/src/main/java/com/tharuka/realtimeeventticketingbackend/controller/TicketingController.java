@@ -1,5 +1,6 @@
 package com.tharuka.realtimeeventticketingbackend.controller;
 
+import com.tharuka.realtimeeventticketingbackend.config.Configuration;
 import com.tharuka.realtimeeventticketingbackend.model.TicketPool;
 import com.tharuka.realtimeeventticketingbackend.service.CustomerService;
 import com.tharuka.realtimeeventticketingbackend.service.VendorService;
@@ -21,7 +22,13 @@ public class TicketingController {
     }
 
     @PostMapping("/start")
-    public String startSystem(@RequestParam int totalTickets, @RequestParam int maxCapacity, @RequestParam int numVendors, @RequestParam int vendorRate, @RequestParam int numCustomers, @RequestParam int customerRate) {
+    public String startSystem(@RequestBody Configuration configuration) {
+        int totalTickets = configuration.getTotalTickets();
+        int maxCapacity = configuration.getMaxCapacity();
+        int numVendors = configuration.getNumVendors();
+        int vendorRate = configuration.getVendorRate();
+        int numCustomers = configuration.getNumCustomers();
+        int customerRate = configuration.getCustomerRate();
         if (systemRunning) {
             return "System is already running. Stop the system before starting a new simulation.";
         }
